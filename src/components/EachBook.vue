@@ -1,23 +1,15 @@
 <template>
   <div class="library__item">
     <div class="item__wrap">
-      <img
-        class="item__img"
-        :src="item.imageLink">
+      <img class="item__img" :src="item.imageLink">
       <span class="item__overlay"></span>
-      <button
-        class="item__button"
-        @click="toggleModal">Details</button>
+      <button class="item__button" @click="toggleModal">Details</button>
     </div>
-    <transition
-      v-if="showModal"
-      name="modal">
+    <transition v-if="showModal" name="modal">
       <div class="modal-mask">
         <div class="modal-wrapper">
           <div class="modal-container">
-            <img
-                class="small"
-                :src="item.imageLink">
+            <img class="small" :src="item.imageLink">
             <div class="details">
               <h2>{{ item.title }}</h2>
               <p>Author: {{ item.author }}</p>
@@ -28,38 +20,39 @@
               <button
                 class="modal__button"
                 :disabled="$store.state.favorites.includes(item)"
-                @click="addToFavorites(item)">{{ !$store.state.favorites.includes(item) ? 'Add to My Books' : 'Added to My Books'}}</button>
+                @click="addToFavorites(item)"
+              >{{ !$store.state.favorites.includes(item) ? 'Add to My Books' : 'Added to My Books'}}</button>
             </div>
-            <button class="modal__close" @click="toggleModal"><i class="fas fa-times"></i></button>
+            <button class="modal__close" @click="toggleModal">
+              <i class="fas fa-times"></i>
+            </button>
           </div>
         </div>
       </div>
     </transition>
   </div>
 </template>
-<script>
 
+<script>
 export default {
-  name: 'EachBook',
-  props: ['item'],
+  name: "EachBook",
+  props: ["item"],
   methods: {
-toggleModal: function(){
-  this.showModal =!this.showModal
-},
-addToFavorites(item) {
-  if(this.$store.state.favorites.includes(item)== false){
-this.$store.state.favorites.push(item)
-  }
-        
+    toggleModal: function() {
+      this.showModal = !this.showModal;
+    },
+    addToFavorites(item) {
+      if (this.$store.state.favorites.includes(item) == false) {
+        this.$store.state.favorites.push(item);
       }
-  },
-  data(){
-    return{
-    showModal: false,
     }
-  
   },
-}
+  data() {
+    return {
+      showModal: false
+    };
+  }
+};
 </script>
 <style lang="scss" scoped>
 $shadow: 6px 10px 20px rgba(0, 0, 0, 0.22);
@@ -71,12 +64,11 @@ $shadow: 6px 10px 20px rgba(0, 0, 0, 0.22);
 .item__wrap {
   position: relative;
 }
-.item__img{
+.item__img {
   width: 269px;
   height: 402px;
   border-radius: 20px;
-box-shadow: $shadow;
-
+  box-shadow: $shadow;
 }
 .item__overlay {
   width: 50px;
@@ -84,8 +76,7 @@ box-shadow: $shadow;
   position: absolute;
   left: 0;
   border-radius: 20px 0 0 20px;
-background: rgba(255, 255, 255, 0.5);
-
+  background: rgba(255, 255, 255, 0.5);
 }
 .item__button {
   background: #fff;
@@ -102,21 +93,21 @@ background: rgba(255, 255, 255, 0.5);
   width: 140px;
   &:hover {
     cursor: pointer;
-        transform:scale(1.3,1.3);
-    -webkit-transform:scale(1.3,1.3);
-    -moz-transform:scale(1.3,1.3);
+    transform: scale(1.3, 1.3);
+    -webkit-transform: scale(1.3, 1.3);
+    -moz-transform: scale(1.3, 1.3);
   }
 }
-.details{
-  margin:30px;
-      display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.details {
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 250px;
 }
 
-
-.small{
-  width:188px;
+.small {
+  width: 188px;
   height: 282px;
 }
 a {
@@ -129,9 +120,9 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: table;
-  transition: opacity .3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .modal-wrapper {
@@ -149,9 +140,9 @@ a {
   padding: 30px 0;
   background-color: #fff;
   border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  transition: all .3s ease;
-  opacity: .95;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+  transition: all 0.3s ease;
+  opacity: 0.95;
   border-radius: 10px;
   position: relative;
 }
@@ -161,30 +152,30 @@ a {
 }
 
 .modal__button {
-  background: #4DB8E6;
+  background: #4db8e6;
   border: 0;
   border-radius: 10px;
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
   padding: 10px 20px;
   &:disabled {
-    background: lighten(#4DB8E6, 20%)
+    background: lighten(#4db8e6, 20%);
   }
   &:hover {
     cursor: pointer;
   }
 }
 .modal__close {
-    position: absolute;
-    top: -10px;
-    border-radius: 20px;
-    background: #fff;
-    right: -10px;
-    border: none;
-    padding: 10px 15px;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
-    &:hover {
-      cursor: pointer;
-    }
+  position: absolute;
+  top: -10px;
+  border-radius: 20px;
+  background: #fff;
+  right: -10px;
+  border: none;
+  padding: 10px 15px;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .modal-enter {

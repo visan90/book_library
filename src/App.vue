@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-    <BookList></BookList>
-    <FavoriteList></FavoriteList>
+    <BookList />
+    <FavoriteList />
   </div>
 </template>
 
 <script>
-
 import BookList from './components/BookList.vue'
 import FavoriteList from './components/FavoriteList.vue'
 export default {
@@ -14,13 +13,6 @@ export default {
   components: {
     BookList,
     FavoriteList
-  }, 
-  methods: {
-  },
-   data(){
-    return{
-
-    }
   }
 }
 </script>
