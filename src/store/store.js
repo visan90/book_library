@@ -11,7 +11,9 @@ export const store = new Vuex.Store({
         toggle: true
       },
       mutations: {
-       
+       saveBookLibrary(state,payload) {
+         state.books = payload
+       }
       },
       getters: {
       

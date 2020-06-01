@@ -1,12 +1,12 @@
 <template>
   <div class="fav-book">
     <div class="fav-book__wrap">
-      <img class="fav-book__img" :src="item.imageLink">
-      <p class="fav-book__title">{{ item.title }}</p>
-      <p>Author: {{ item.author }}</p>
-      <p>Pages: {{ item.pages }}</p>
+      <img class="fav-book__img" :src="book.imageLink">
+      <p class="fav-book__title">{{ book.title }}</p>
+      <p>Author: {{ book.author }}</p>
+      <p>Pages: {{ book.pages }}</p>
       <p>
-        <a :href="item.link">More on Wikipedia</a>
+        <a :href="book.link">More on Wikipedia</a>
       </p>
     </div>
     <button
@@ -14,7 +14,7 @@
       @click="checkToIsRead"
       class="fav-book__button"
     >Mark as read</button>
-    <button @click="removeFromFavorites(item)" class="fav-book__button">Remove</button>
+    <button @click="removeFromFavorites(book)" class="fav-book__button">Remove</button>
     <BookRating v-show="!status"/>
   </div>
 </template>
@@ -22,7 +22,12 @@
 import BookRating from "./BookRating";
 export default {
   name: "EachFavoriteBook",
-  props: ["item"],
+  props: {
+    book: {
+      type: Object,
+      required: true
+    }
+  },
   components: {
     BookRating
   },
@@ -32,9 +37,9 @@ export default {
     };
   },
   methods: {
-    removeFromFavorites(item) {
+    removeFromFavorites(book) {
       this.$store.state.favorites.splice(
-        this.$store.state.favorites.indexOf(item),
+        this.$store.state.favorites.indexOf(book),
         1
       );
       if (this.status == false) {

@@ -1,46 +1,49 @@
 <template>
-  <section class="library" v-show="$store.state.toggle">
-    <button class="library__button" @click="useToggle">My Books</button>
+  <section class="library">
+    <router-link to="/">Homepage</router-link>
     <h2 class="library__title">Best 100 books to read</h2>
     <div class="library__searchbar">
       <input
         class="library__searchbar--input"
         type="text"
-        v-model="searchedTerm"
+        v-model="searchedBook"
         placeholder="Search by title or author"
       >
       <i class="fas fa-search library__searchbar--icon"></i>
     </div>
     <div class="library__list">
-      <EachBook v-for="item in filteredList" :item="item" :key="item.imageLink"/>
+      <EachBook 
+        v-for="book in filteredBookList" 
+        :book="book" 
+        :key="book.imageLink"/>
     </div>
   </section>
 </template>
 
 <script>
 import axios from "axios";
-import EachBook from "./EachBook.vue";
+import EachBook from "../components/EachBook";
+import { mapState } from 'vuex'
+
 export default {
   name: "BookList",
   components: {
     EachBook
   },
-  methods: {
-    useToggle() {
-      this.$store.state.toggle = !this.$store.state.toggle;
-    }
-  },
   data() {
     return {
-      searchedTerm: ""
+      searchedBook: ""
     };
   },
   computed: {
-    filteredList() {
-      return this.$store.state.books.filter(item => {
+     ...mapState({
+       books: state => state.books
+     }),
+    filteredBookList() {
+      return this.books.filter(item => {
         return (
-          item.title.toLowerCase().includes(this.searchedTerm.toLowerCase()) ||
-          item.author.toLowerCase().includes(this.searchedTerm.toLowerCase())
+          item.title.toLowerCase().includes(this.searchedBook.toLowerCase()) ||
+          item.author.toLowerCase().includes(this.searchedBook.toLowerCase())
         );
       });
     }
@@ -51,7 +54,7 @@ export default {
         "https://raw.githubusercontent.com/benoitvallon/100-best-books/master/books.json"
       )
       .then(response => {
-        this.$store.state.books = response.data;
+        this.$store.commit('saveBookLibrary', response.data)
       })
       .catch(error => {
         console.log(error);

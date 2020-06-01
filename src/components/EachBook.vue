@@ -1,7 +1,7 @@
 <template>
   <div class="library__item">
     <div class="item__wrap">
-      <img class="item__img" :src="item.imageLink">
+      <img class="item__img" :src="book.imageLink">
       <span class="item__overlay"></span>
       <button class="item__button" @click="toggleModal">Details</button>
     </div>
@@ -9,19 +9,19 @@
       <div class="modal-mask">
         <div class="modal-wrapper">
           <div class="modal-container">
-            <img class="small" :src="item.imageLink">
+            <img class="small" :src="book.imageLink">
             <div class="details">
-              <h2>{{ item.title }}</h2>
-              <p>Author: {{ item.author }}</p>
-              <p>Pages: {{ item.pages }}</p>
+              <h2>{{ book.title }}</h2>
+              <p>Author: {{ book.author }}</p>
+              <p>Pages: {{ book.pages }}</p>
               <p>
-                <a target="_blank" :href="item.link">More on Wikipedia</a>
+                <a target="_blank" :href="book.link">More on Wikipedia</a>
               </p>
               <button
                 class="modal__button"
-                :disabled="$store.state.favorites.includes(item)"
-                @click="addToFavorites(item)"
-              >{{ !$store.state.favorites.includes(item) ? 'Add to My Books' : 'Added to My Books'}}</button>
+                :disabled="$store.state.favorites.includes(book)"
+                @click="addToFavorites(book)"
+              >{{ !$store.state.favorites.includes(book) ? 'Add to My Books' : 'Added to My Books'}}</button>
             </div>
             <button class="modal__close" @click="toggleModal">
               <i class="fas fa-times"></i>
@@ -36,14 +36,19 @@
 <script>
 export default {
   name: "EachBook",
-  props: ["item"],
+  props: {
+    book: {
+      type: Object,
+      required: true
+    }
+  },
   methods: {
     toggleModal: function() {
       this.showModal = !this.showModal;
     },
-    addToFavorites(item) {
-      if (this.$store.state.favorites.includes(item) == false) {
-        this.$store.state.favorites.push(item);
+    addToFavorites(book) {
+      if (this.$store.state.favorites.includes(book) == false) {
+        this.$store.state.favorites.push(book);
       }
     }
   },

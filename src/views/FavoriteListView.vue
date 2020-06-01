@@ -1,22 +1,23 @@
 <template>
-    <section class="favorites" v-show="!$store.state.toggle">
-      <button class="favorites__button" @click="useToggle">Go back to library</button>
+    <section class="favorites">
+      <router-link to="/">Homepage</router-link>
       <h2 class="favorites__title">My Books</h2>
       <p class="favorites__text">Total Books: {{ checkFavorite }}</p>
-      <p class="favorites__text" v-if="checkFavorite">Books left to read: {{ checkFavorite - $store.state.counter }}</p>
+      <p class="favorites__text" v-if="checkFavorite">Books left to read: {{ checkFavorite - booksRead }}</p>
       <p class="favorites__text" v-else>No books chosen yet</p>
       <div class="favorites__list">
         <EachFavoriteBook
-          v-for="item in $store.state.favorites"
-          :item="item"
-          :key="item.year+item.pages"
+          v-for="book in favoriteBooks"
+          :book="book"
+          :key="book.year+book.pages"
         />
       </div>
     </section>
 </template>
 
 <script>
-import EachFavoriteBook from "./EachFavoriteBook.vue";
+import EachFavoriteBook from "../components/EachFavoriteBook.vue";
+import { mapState } from 'vuex'
 
 export default {
   name: "FavoriteList",
@@ -29,15 +30,14 @@ export default {
     };
   },
   computed: {
+    ...mapState({
+       favoriteBooks: state => state.favorites,
+       booksRead: state => state.counter
+     }),
     checkFavorite() {
-      return this.$store.state.favorites.length;
+      return this.favoriteBooks.length;
     }
   },
-  methods: {
-    useToggle() {
-      this.$store.state.toggle = !this.$store.state.toggle;
-    }
-  }
 };
 </script>
 
