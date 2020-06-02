@@ -19,9 +19,10 @@
               </p>
               <button
                 class="modal__button"
-                :disabled="$store.state.favorites.includes(book)"
-                @click="addToFavorites(book)"
-              >{{ !$store.state.favorites.includes(book) ? 'Add to My Books' : 'Added to My Books'}}</button>
+                :disabled="checkBookFavorites"
+                @click="addToFavorites()"
+              >{{ !checkBookFavorites ? 'Add to My Books' : 'Already in My books'}}
+              </button>
             </div>
             <button class="modal__close" @click="toggleModal">
               <i class="fas fa-times"></i>
@@ -34,6 +35,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: "EachBook",
   props: {
@@ -42,21 +44,27 @@ export default {
       required: true
     }
   },
-  methods: {
-    toggleModal: function() {
-      this.showModal = !this.showModal;
-    },
-    addToFavorites(book) {
-      if (this.$store.state.favorites.includes(book) == false) {
-        this.$store.state.favorites.push(book);
-      }
-    }
-  },
   data() {
     return {
       showModal: false
     };
-  }
+  },
+  computed: {
+ ...mapState({
+       favoriteBooks: state => state.favorites
+     }),
+     checkBookFavorites(){
+      return this.favoriteBooks.some(item=> item.title === this.book.title )
+    },
+  },
+  methods: {
+    toggleModal: function() {
+      this.showModal = !this.showModal;
+    },
+    addToFavorites() {
+      this.$store.commit('addBookToFavorites', this.book)
+    }
+  },
 };
 </script>
 <style lang="scss" scoped>

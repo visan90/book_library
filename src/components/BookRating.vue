@@ -1,7 +1,7 @@
 <template>
   <div class="rating">
     <p>Rating:</p>
-    <star-rating v-bind:star-size="20"></star-rating>
+    <star-rating v-model="rating" v-bind:star-size="20"></star-rating>
       <button
         v-if="!reviewStatus"
         @click="reviewStatus =!reviewStatus"
@@ -10,7 +10,7 @@
       <p :class="review==='' ? '': 'rating__review'" v-if="!reviewStatus">{{ review }}</p>
       <div v-else class="rating__add-review">
         <textarea type="text" v-model="review" maxlength="100"></textarea>
-        <button @click="reviewStatus =!reviewStatus" class="rating__button">Done</button>
+        <button @click="saveRating()" class="rating__button">Done</button>
       </div>
   </div>
 </template>
@@ -19,15 +19,28 @@
 import StarRating from "vue-star-rating";
 export default {
   name: "BookRating",
-  props: {},
+  props: {
+    bookTitle: {
+      type: String,
+      required: true
+    }
+  },
   components: {
     StarRating
   },
   data() {
     return {
       reviewStatus: false,
-      review: ""
+      review: "",
+      rating: null
     };
+  },
+  methods:{
+    saveRating(){
+      this.reviewStatus =!this.reviewStatus
+      console.log(this.bookTitle)
+      this.$store.commit('addBookRating', {review: this.review, rating: this.rating, bookTitle: this.bookTitle})
+    }
   }
 };
 </script>

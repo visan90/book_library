@@ -2,9 +2,9 @@
     <section class="favorites">
       <router-link to="/">Homepage</router-link>
       <h2 class="favorites__title">My Books</h2>
-      <p class="favorites__text">Total Books: {{ checkFavorite }}</p>
-      <p class="favorites__text" v-if="checkFavorite">Books left to read: {{ checkFavorite - booksRead }}</p>
-      <p class="favorites__text" v-else>No books chosen yet</p>
+      <p class="favorites__text">Total Books: {{ checkFavoritesLength }}</p>
+      <p class="favorites__text" v-if="checkFavoritesLength">Books left to read: {{checkUnreadBooks}}</p>
+      <p class="favorites__text" v-else>No books read yet</p>
       <div class="favorites__list">
         <EachFavoriteBook
           v-for="book in favoriteBooks"
@@ -24,18 +24,15 @@ export default {
   components: {
     EachFavoriteBook
   },
-  data() {
-    return {
-      searchedTerm: ""
-    };
-  },
   computed: {
     ...mapState({
        favoriteBooks: state => state.favorites,
-       booksRead: state => state.counter
      }),
-    checkFavorite() {
+    checkFavoritesLength() {
       return this.favoriteBooks.length;
+    },
+    checkUnreadBooks(){
+      return this.favoriteBooks.filter(book => book.readStatus === false).length
     }
   },
 };

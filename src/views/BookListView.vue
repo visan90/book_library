@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import axios from "axios";
+
 import EachBook from "../components/EachBook";
 import { mapState } from 'vuex'
 
@@ -49,16 +49,7 @@ export default {
     }
   },
   created() {
-    axios
-      .get(
-        "https://raw.githubusercontent.com/benoitvallon/100-best-books/master/books.json"
-      )
-      .then(response => {
-        this.$store.commit('saveBookLibrary', response.data)
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    this.$store.dispatch('loadData')
   }
 };
 </script>

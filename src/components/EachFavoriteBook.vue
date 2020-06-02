@@ -10,12 +10,12 @@
       </p>
     </div>
     <button
-      :disabled="!status"
+      v-show="!book.readStatus"
       @click="checkToIsRead"
       class="fav-book__button"
     >Mark as read</button>
-    <button @click="removeFromFavorites(book)" class="fav-book__button">Remove</button>
-    <BookRating v-show="!status"/>
+    <button @click="removeFromFavorites()" class="fav-book__button">Remove book</button>
+    <BookRating v-show="book.readStatus" :book-title= "book.title"/>
   </div>
 </template>
 <script>
@@ -31,24 +31,13 @@ export default {
   components: {
     BookRating
   },
-  data() {
-    return {
-      status: true
-    };
-  },
   methods: {
-    removeFromFavorites(book) {
-      this.$store.state.favorites.splice(
-        this.$store.state.favorites.indexOf(book),
-        1
-      );
-      if (this.status == false) {
-        this.$store.state.counter--;
-      }
+    removeFromFavorites() {
+      this.$store.commit('removeBookFromFavorites', this.book)
     },
     checkToIsRead() {
-      this.status = false;
-      this.$store.state.counter++;
+      this.$store.commit('markAsRead', this.book.title)
+
     }
   }
 };
