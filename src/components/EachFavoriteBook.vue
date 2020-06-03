@@ -11,7 +11,7 @@
     </div>
     <button
       v-show="!book.readStatus"
-      @click="checkToIsRead"
+      @click="changeToIsRead()"
       class="fav-book__button"
     >Mark as read</button>
     <button @click="removeFromFavorites()" class="fav-book__button">Remove book</button>
@@ -35,8 +35,8 @@ export default {
     removeFromFavorites() {
       this.$store.commit('removeBookFromFavorites', this.book)
     },
-    checkToIsRead() {
-      this.$store.commit('markAsRead', this.book.title)
+    changeToIsRead() {
+      this.$store.dispatch('checkToMarkAsRead', this.book.title)
 
     }
   }

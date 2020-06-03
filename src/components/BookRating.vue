@@ -39,7 +39,7 @@ export default {
     saveRating(){
       this.reviewStatus =!this.reviewStatus
       console.log(this.bookTitle)
-      this.$store.commit('addBookRating', {review: this.review, rating: this.rating, bookTitle: this.bookTitle})
+      this.$store.dispatch('createBookRating', {review: this.review, rating: this.rating, bookTitle: this.bookTitle})
     }
   }
 };

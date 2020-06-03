@@ -16,7 +16,18 @@ export const store = new Vuex.Store({
           axios.get("https://raw.githubusercontent.com/benoitvallon/100-best-books/master/books.json").then((response) => {
             commit('updateBooks', response.data)
           })
-        }
+        },
+        checkToMarkAsRead({ commit, state }, bookTitle) {
+          var getObject = state.favorites.find(item => item.title == bookTitle)
+          var objectIndex = state.favorites.indexOf(getObject)
+          commit('markAsRead', objectIndex)
+        },
+        createBookRating({ commit, state }, data){
+          var getObject = state.favorites.find(item => item.title == data.bookTitle)
+           var objectIndex = state.favorites.indexOf(getObject)
+           var rating = {...state.favorites[objectIndex], review: data.review, rating: data.rating}
+           commit('addBookRating', {rating: rating, index: objectIndex})
+         },
       },
 
       mutations: {
@@ -32,17 +43,11 @@ export const store = new Vuex.Store({
        removeBookFromFavorites(state, payload) {
         state.favorites.splice(state.favorites.indexOf(payload),1);
        },
-       markAsRead(state, payload) {
-         var getObject = state.favorites.find(item => item.title == payload)
-         var objectIndex = state.favorites.indexOf(getObject)
+       markAsRead(state, objectIndex) {
          state.favorites[objectIndex].readStatus = true
        },
-       addBookRating(state, payload){
-        var getObject = state.favorites.find(item => item.title == payload.bookTitle)
-         var objectIndex = state.favorites.indexOf(getObject)
-         state.favorites[objectIndex].review = payload.review
-         state.favorites[objectIndex].rating = payload.rating
-         console.log(state.favorites)
+       addBookRating(state, data){
+         state.favorites[data.index]= data.rating
        }
       },
 
