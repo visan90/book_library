@@ -9,7 +9,7 @@
         <EachFavoriteBook
           v-for="book in favoriteBooks"
           :book="book"
-          :key="book.year+book.pages"
+          :key="book.title+book.pages"
         />
       </div>
     </section>

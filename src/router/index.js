@@ -22,6 +22,11 @@ Vue.use(VueRouter)
     name: 'my-library',
     component: () => import(/* webpackChunkName: "my-library" */ '../views/FavoriteListView.vue')
   },
+  {
+    path: '/add-book',
+    name: 'add-lbook',
+    component: () => import(/* webpackChunkName: "my-library" */ '../views/AddBookView.vue')
+  },
 
 ]
 

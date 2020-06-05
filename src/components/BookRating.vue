@@ -1,16 +1,20 @@
 <template>
   <div class="rating">
-    <p>Rating:</p>
-    <star-rating v-model="rating" v-bind:star-size="20"></star-rating>
       <button
         v-if="!reviewStatus"
         @click="reviewStatus =!reviewStatus"
         class="rating__button"
       >{{review != '' ? 'Edit review' : 'Add review'}}</button>
+      <div v-if="!reviewStatus && rating">
+        <star-rating :read-only="true" :show-rating="false"  v-model="rating" :rating="rating" :star-size="20"></star-rating>
+        </div>
       <p :class="review==='' ? '': 'rating__review'" v-if="!reviewStatus">{{ review }}</p>
       <div v-else class="rating__add-review">
-        <textarea type="text" v-model="review" maxlength="100"></textarea>
-        <button @click="saveRating()" class="rating__button">Done</button>
+        <p>Rating:</p>
+        <star-rating  v-model="rating" :rating="rating" :star-size="20"></star-rating>
+        <p>Review:</p>
+        <textarea :value="review" type="text" @change="getText($event)" maxlength="100"></textarea>
+        <button @click="saveReview()" class="rating__button">Done</button>
       </div>
   </div>
 </template>
@@ -20,14 +24,23 @@ import StarRating from "vue-star-rating";
 export default {
   name: "BookRating",
   props: {
-    bookTitle: {
-      type: String,
+    book: {
+      type: Object,
       required: true
-    }
+    },
   },
   components: {
     StarRating
   },
+ mounted(){
+   if(this.book.review){
+     this.review = this.book.review
+   }
+    if(this.book.rating){
+     this.rating = this.book.rating
+   }
+
+ },
   data() {
     return {
       reviewStatus: false,
@@ -35,12 +48,15 @@ export default {
       rating: null
     };
   },
-  methods:{
-    saveRating(){
+
+  methods: {
+    getText(event){
+      this.review = event.target.value
+    },
+    saveReview(){
       this.reviewStatus =!this.reviewStatus
-      console.log(this.bookTitle)
-      this.$store.dispatch('createBookRating', {review: this.review, rating: this.rating, bookTitle: this.bookTitle})
-    }
+      this.$store.dispatch('sendToBookRating', {review: this.review, rating: this.rating, bookTitle: this.book.title})
+    },
   }
 };
 </script>

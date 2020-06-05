@@ -15,7 +15,7 @@
       <EachBook 
         v-for="book in filteredBookList" 
         :book="book" 
-        :key="book.imageLink"/>
+        :key="book.title+book.pages"/>
     </div>
   </section>
 </template>

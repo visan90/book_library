@@ -1,5 +1,5 @@
 <template>
-  <div class="fav-book">
+  <div class="fav-book" :class="book.readStatus ? 'fav-book--read': 'fav-book--notread'">
     <div class="fav-book__wrap">
       <img class="fav-book__img" :src="book.imageLink">
       <p class="fav-book__title">{{ book.title }}</p>
@@ -15,7 +15,7 @@
       class="fav-book__button"
     >Mark as read</button>
     <button @click="removeFromFavorites()" class="fav-book__button">Remove book</button>
-    <BookRating v-show="book.readStatus" :book-title= "book.title"/>
+    <BookRating v-show="book.readStatus" :book= "book"/>
   </div>
 </template>
 <script>
@@ -43,11 +43,17 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+.fav-book--read {
+  box-shadow: 4px 6px 10px rgb(119, 221, 119);
+}
+.fav-book--notread {
+  box-shadow: 4px 6px 10px rgb(255, 129, 123);
+}
 .fav-book {
   max-width: 300px;
   padding: 20px;
   text-align: center;
-  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+  
   &__wrap {
     display: flex;
     flex-direction: column;

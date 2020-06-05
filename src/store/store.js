@@ -14,30 +14,37 @@ export const store = new Vuex.Store({
           commit
         }) {
           axios.get("https://raw.githubusercontent.com/benoitvallon/100-best-books/master/books.json").then((response) => {
-            commit('updateBooks', response.data)
+            const normalizedBooks = response.data.map(book => (
+              { title: book.title, 
+                author: book.author, 
+                pages: book.pages, 
+                link: book.link, 
+                imageLink: book.imageLink
+              }))
+            commit('updateBooks', normalizedBooks)
           })
         },
         checkToMarkAsRead({ commit, state }, bookTitle) {
-          var getObject = state.favorites.find(item => item.title == bookTitle)
-          var objectIndex = state.favorites.indexOf(getObject)
+          const getObject = state.favorites.find(item => item.title == bookTitle)
+          const objectIndex = state.favorites.indexOf(getObject)
           commit('markAsRead', objectIndex)
         },
-        createBookRating({ commit, state }, data){
-          var getObject = state.favorites.find(item => item.title == data.bookTitle)
-           var objectIndex = state.favorites.indexOf(getObject)
-           var rating = {...state.favorites[objectIndex], review: data.review, rating: data.rating}
-           commit('addBookRating', {rating: rating, index: objectIndex})
+        sendToBookRating({ commit, state }, data){
+          const getObject = state.favorites.find(item => item.title == data.bookTitle)
+          const objectIndex = state.favorites.indexOf(getObject)
+          const ratingValues = {review: data.review, rating: data.rating}
+           commit('addBookRating', {ratingValues: ratingValues, index: objectIndex})
          },
       },
 
       mutations: {
-        updateBooks(state, payload) {
-          state.books = payload
+        updateBooks(state, normalizedBooks) {
+          state.books = normalizedBooks
         },
        addBookToFavorites(state, payload) {
          //added aditional verification in order to avoid "Add to My Books" button disabled workaround
          if (state.favorites.includes(payload) == false) {
-            state.favorites.push({...payload, readStatus: false});
+            state.favorites.push({...payload, readStatus: false, rating: null, review: ""});
       }
        },
        removeBookFromFavorites(state, payload) {
@@ -47,7 +54,11 @@ export const store = new Vuex.Store({
          state.favorites[objectIndex].readStatus = true
        },
        addBookRating(state, data){
-         state.favorites[data.index]= data.rating
+         state.favorites[data.index].rating= data.ratingValues.rating
+         state.favorites[data.index].review= data.ratingValues.review
+       },
+       addPersonalBook(state, newBook){
+        state.favorites.push(newBook)
        }
       },
 
