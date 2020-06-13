@@ -1,7 +1,8 @@
 <template>
   <div class="fav-book" :class="book.readStatus ? 'fav-book--read': 'fav-book--notread'">
     <div class="fav-book__wrap">
-      <img class="fav-book__img" :src="book.imageLink">
+      <img v-if="book.imageLink" class="fav-book__img" :src="book.imageLink">
+      <div v-else class="fav-book__img-placeholder">No book cover</div>
       <p class="fav-book__title">{{ book.title }}</p>
       <p>Author: {{ book.author }}</p>
       <p>Pages: {{ book.pages }}</p>
@@ -89,5 +90,13 @@ export default {
 
 a {
   text-decoration: none;
+}
+.fav-book__img-placeholder {
+  width: 120px;
+  height: 188px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #dfe1e6;
 }
 </style>
