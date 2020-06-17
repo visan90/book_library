@@ -1,6 +1,19 @@
 <template>
   <div class="book-form">
-    <router-link to="/">Homepage</router-link>
+    <div class="book-form__link-wrap">
+      <router-link
+        to="/"
+        class="book-form__link"
+      >
+        Home
+      </router-link>
+      <router-link
+        to="/my-library"
+        class="book-form__link"
+      >
+        My library
+      </router-link>
+    </div>
     <p class="book-form__title">Add your desired book</p>
     <form class="book-form__form" @submit.prevent="saveBook">
       <label class="book-form__input-wrapper">
@@ -138,9 +151,32 @@ $shadow: 0px 1rem 2rem rgba(0, 0, 0, 0.1);
   transition: all 0.2s;
   transition-delay: 0.1s;
 }
-.book-form__input-label {
 
+.book-form__link-wrap {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 1;
 }
+
+.book-form__link {
+  background: #fff;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+  color: #000000;
+  padding: 10px 0;
+  width: 180px;
+  text-decoration: none;
+  &:hover {
+    cursor: pointer;
+    color: #4db8e6;
+  }
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}
+
 .error {
   color: #FD6958;
   font-size: 14px;

@@ -1,6 +1,19 @@
 <template>
   <section class="library">
-    <router-link to="/">Homepage</router-link>
+    <div class="library__link-wrap">
+      <router-link
+        to="/add-book"
+        class="library__link"
+      >
+        Add my favourite book
+      </router-link>
+      <router-link
+        to="/my-library"
+        class="library__link"
+      >
+        My library
+      </router-link>
+    </div>
     <h2 class="library__title">Best 100 books to read</h2>
     <div class="library__searchbar">
       <input
@@ -112,6 +125,30 @@ $shadow: 0px 1rem 2rem rgba(0, 0, 0, 0.1);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+  }
+}
+.library__link-wrap {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 1;
+}
+
+.library__link {
+  background: #fff;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+  color: #000000;
+  padding: 10px 0;
+  width: 180px;
+  text-decoration: none;
+  &:hover {
+    cursor: pointer;
+    color: #4db8e6;
+  }
+  &:not(:last-child) {
+    margin-bottom: 10px;
   }
 }
 </style>

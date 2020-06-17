@@ -1,6 +1,19 @@
 <template>
     <section class="favorites">
-      <router-link to="/">Homepage</router-link>
+      <div class="favorites__link-wrap">
+        <router-link
+          to="/"
+          class="favorites__link"
+        >
+          Home
+        </router-link>
+        <router-link
+          to="/add-lbook"
+          class="favorites__link"
+        >
+          Add my favourite book
+        </router-link>
+      </div>
       <h2 class="favorites__title">My Books</h2>
       <p class="favorites__text">Total Books: {{ checkFavoritesLength }}</p>
       <p class="favorites__text" v-if="checkFavoritesLength">Books left to read: {{checkUnreadBooks}}</p>
@@ -78,6 +91,31 @@ $shadow: 0px 1rem 2rem rgba(0, 0, 0, 0.1);
     grid-gap: 20px;
     grid-auto-rows: auto;
     justify-content: center;
+  }
+}
+
+.favorites__link-wrap {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  z-index: 1;
+}
+
+.favorites__link {
+  background: #fff;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+  color: #000000;
+  padding: 10px 0;
+  width: 180px;
+  text-decoration: none;
+  &:hover {
+    cursor: pointer;
+    color: #4db8e6;
+  }
+  &:not(:last-child) {
+    margin-bottom: 10px;
   }
 }
 </style>
