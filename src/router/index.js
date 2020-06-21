@@ -1,38 +1,42 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Home from "../views/Home.vue";
 
+Vue.use(VueRouter);
 
-
-Vue.use(VueRouter)
-
-  const routes = [
+const routes = [
   {
-    path: '/',
-    redirect: '/list',
-    name: 'Home',
-    component: Home
+    path: "/",
+    redirect: "/list",
+    name: "Home",
+    component: Home,
   },
   {
-    path: '/list',
-    name: 'book-list-view',
-    component: () => import(/* webpackChunkName: "book-list-view" */ '../views/BookListView.vue')
+    path: "/list",
+    name: "book-list-view",
+    component: () =>
+      import(
+        /* webpackChunkName: "book-list-view" */ "../views/BookListView.vue"
+      ),
   },
   {
-    path: '/my-library',
-    name: 'my-library',
-    component: () => import(/* webpackChunkName: "my-library" */ '../views/FavoriteListView.vue')
+    path: "/my-library",
+    name: "my-library",
+    component: () =>
+      import(
+        /* webpackChunkName: "my-library" */ "../views/FavoriteListView.vue"
+      ),
   },
   {
-    path: '/add-book',
-    name: 'add-lbook',
-    component: () => import(/* webpackChunkName: "my-library" */ '../views/AddBookView.vue')
+    path: "/add-book",
+    name: "add-lbook",
+    component: () =>
+      import(/* webpackChunkName: "my-library" */ "../views/AddBookView.vue"),
   },
-
-]
+];
 
 const router = new VueRouter({
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

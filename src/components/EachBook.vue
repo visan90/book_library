@@ -1,7 +1,7 @@
 <template>
   <div class="library__item">
     <div class="item__wrap">
-      <img class="item__img" :src="book.imageLink">
+      <img class="item__img" :src="book.imageLink" />
       <span class="item__overlay"></span>
       <button class="item__button" @click="toggleModal">Details</button>
     </div>
@@ -9,7 +9,7 @@
       <div class="modal-mask">
         <div class="modal-wrapper">
           <div class="modal-container">
-            <img class="small" :src="book.imageLink">
+            <img class="small" :src="book.imageLink" />
             <div class="details">
               <h2>{{ book.title }}</h2>
               <p>Author: {{ book.author }}</p>
@@ -21,7 +21,12 @@
                 class="modal__button"
                 :disabled="checkBookFavorites"
                 @click="addToFavorites()"
-              >{{ !checkBookFavorites ? 'Add to My Books' : 'Already in My books'}}
+              >
+                {{
+                  !checkBookFavorites
+                    ? "Add to My Books"
+                    : "Already in My books"
+                }}
               </button>
             </div>
             <button class="modal__close" @click="toggleModal">
@@ -35,35 +40,35 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 export default {
   name: "EachBook",
   props: {
     book: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      showModal: false
+      showModal: false,
     };
   },
   computed: {
- ...mapState({
-       favoriteBooks: state => state.favorites
-     }),
-     checkBookFavorites(){
-      return this.favoriteBooks.some(item=> item.title === this.book.title )
+    ...mapState({
+      favoriteBooks: (state) => state.favorites,
+    }),
+    checkBookFavorites() {
+      return this.favoriteBooks.some((item) => item.title === this.book.title);
     },
   },
   methods: {
-    toggleModal: function() {
+    toggleModal: function () {
       this.showModal = !this.showModal;
     },
     addToFavorites() {
-      this.$store.commit('addBookToFavorites', this.book)
-    }
+      this.$store.commit("addBookToFavorites", this.book);
+    },
   },
 };
 </script>

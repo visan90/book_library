@@ -23,7 +23,10 @@
     "@vue/cli-plugin-router": "^4.4.1",
     "@vue/cli-service": "^4.4.1",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.1.0",
+    "eslint": "^7.3.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-vue": "^6.2.2",
     "node-sass": "^4.14.1",
     "prettier": "^2.0.5",
@@ -36,10 +39,6 @@
     "env": {
       "node": true
     },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
     "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"

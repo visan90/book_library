@@ -1,56 +1,52 @@
 <template>
-    <section class="favorites">
-      <div class="favorites__link-wrap">
-        <router-link
-          to="/"
-          class="favorites__link"
-        >
-          Home
-        </router-link>
-        <router-link
-          to="/add-lbook"
-          class="favorites__link"
-        >
-          Add my favourite book
-        </router-link>
-      </div>
-      <h2 class="favorites__title">My Books</h2>
-      <p class="favorites__text">Total Books: {{ checkFavoritesLength }}</p>
-      <p class="favorites__text" v-if="checkFavoritesLength">Books left to read: {{checkUnreadBooks}}</p>
-      <p class="favorites__text" v-else>No books read yet</p>
-      <div class="favorites__list">
-        <EachFavoriteBook
-          v-for="book in favoriteBooks"
-          :book="book"
-          :key="book.title+book.pages"
-        />
-      </div>
-    </section>
+  <section class="favorites">
+    <div class="favorites__link-wrap">
+      <router-link to="/" class="favorites__link">
+        Home
+      </router-link>
+      <router-link to="/add-lbook" class="favorites__link">
+        Add my favourite book
+      </router-link>
+    </div>
+    <h2 class="favorites__title">My Books</h2>
+    <p class="favorites__text">Total Books: {{ checkFavoritesLength }}</p>
+    <p v-if="checkFavoritesLength" class="favorites__text">
+      Books left to read: {{ checkUnreadBooks }}
+    </p>
+    <p v-else class="favorites__text">No books read yet</p>
+    <div class="favorites__list">
+      <EachFavoriteBook
+        v-for="book in favoriteBooks"
+        :key="book.title + book.pages"
+        :book="book"
+      />
+    </div>
+  </section>
 </template>
 
 <script>
 import EachFavoriteBook from "../components/EachFavoriteBook.vue";
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
 export default {
   name: "FavoriteList",
   components: {
-    EachFavoriteBook
+    EachFavoriteBook,
   },
   computed: {
     ...mapState({
-       favoriteBooks: state => state.favorites,
-     }),
+      favoriteBooks: (state) => state.favorites,
+    }),
     checkFavoritesLength() {
       return this.favoriteBooks.length;
     },
-    checkUnreadBooks(){
-      return this.favoriteBooks.filter(book => book.readStatus === false).length
-    }
+    checkUnreadBooks() {
+      return this.favoriteBooks.filter((book) => book.readStatus === false)
+        .length;
+    },
   },
 };
 </script>
-
 
 <style lang="scss" scoped>
 $shadow: 0px 1rem 2rem rgba(0, 0, 0, 0.1);

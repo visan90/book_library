@@ -1,7 +1,10 @@
 <template>
-  <div class="fav-book" :class="book.readStatus ? 'fav-book--read': 'fav-book--notread'">
+  <div
+    class="fav-book"
+    :class="book.readStatus ? 'fav-book--read' : 'fav-book--notread'"
+  >
     <div class="fav-book__wrap">
-      <img v-if="book.imageLink" class="fav-book__img" :src="book.imageLink">
+      <img v-if="book.imageLink" class="fav-book__img" :src="book.imageLink" />
       <div v-else class="fav-book__img-placeholder">No book cover</div>
       <p class="fav-book__title">{{ book.title }}</p>
       <p>Author: {{ book.author }}</p>
@@ -12,35 +15,38 @@
     </div>
     <button
       v-show="!book.readStatus"
-      @click="changeToIsRead()"
       class="fav-book__button"
-    >Mark as read</button>
-    <button @click="removeFromFavorites()" class="fav-book__button">Remove book</button>
-    <BookRating v-show="book.readStatus" :book= "book"/>
+      @click="changeToIsRead()"
+    >
+      Mark as read
+    </button>
+    <button class="fav-book__button" @click="removeFromFavorites()">
+      Remove book
+    </button>
+    <BookRating v-show="book.readStatus" :book="book" />
   </div>
 </template>
 <script>
 import BookRating from "./BookRating";
 export default {
   name: "EachFavoriteBook",
+  components: {
+    BookRating,
+  },
   props: {
     book: {
       type: Object,
-      required: true
-    }
-  },
-  components: {
-    BookRating
+      required: true,
+    },
   },
   methods: {
     removeFromFavorites() {
-      this.$store.commit('removeBookFromFavorites', this.book)
+      this.$store.commit("removeBookFromFavorites", this.book);
     },
     changeToIsRead() {
-      this.$store.dispatch('checkToMarkAsRead', this.book.title)
-
-    }
-  }
+      this.$store.dispatch("checkToMarkAsRead", this.book.title);
+    },
+  },
 };
 </script>
 <style scoped lang="scss">
@@ -54,7 +60,7 @@ export default {
   max-width: 300px;
   padding: 20px;
   text-align: center;
-  
+
   &__wrap {
     display: flex;
     flex-direction: column;

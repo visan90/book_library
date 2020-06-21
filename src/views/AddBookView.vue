@@ -1,16 +1,10 @@
 <template>
   <div class="book-form">
     <div class="book-form__link-wrap">
-      <router-link
-        to="/"
-        class="book-form__link"
-      >
+      <router-link to="/" class="book-form__link">
         Home
       </router-link>
-      <router-link
-        to="/my-library"
-        class="book-form__link"
-      >
+      <router-link to="/my-library" class="book-form__link">
         My library
       </router-link>
     </div>
@@ -18,67 +12,82 @@
     <form class="book-form__form" @submit.prevent="saveBook">
       <label class="book-form__input-wrapper">
         <span class="book-form__input-label">Title</span>
-          <input 
-            v-model="$v.newBook.title.$model"
-            class="book-form__input"
-            type="text"
-          />
-      </label>
-      <span class="error" v-if="$v.newBook.title.$error && !$v.newBook.title.required">Book title is required</span>
-      <label class="book-form__input-wrapper">
-        <span class="book-form__input-label">Author</span>
-          <input 
-            v-model="$v.newBook.author.$model"
-            class="book-form__input"
-            type="text"
-          />
-      </label>
-      <span class="error" v-if="$v.newBook.author.$error && !$v.newBook.author.required">Author is required</span>
-      <label class="book-form__input-wrapper">
-        <span class="book-form__input-label">Number of pages</span>
-          <input
-            v-model="$v.newBook.pages.$model"
-            class="book-form__input"
-            type="number"
-            min="1"
-          />
-      </label>
-      <span class="error" v-if="$v.newBook.pages.$error && !$v.newBook.pages.required">Number of pages is required</span>
-      <label class="book-form__input-wrapper">
-        <span class="book-form__input-label">Wikipedia Link</span>
-          <input
-            v-model="$v.newBook.link.$model"
-            class="book-form__input"
-            type="text"
-          />
-      </label>
-      <span class="error" v-if="$v.newBook.link.$error && !$v.newBook.link.required">A link to the book on Wiki is required</span>
-      <label class="book-form__input-wrapper">Upload a book cover
         <input
-          type="file"
-          accept="image/*"
-          @change="uploadImage($event)"
-          class="book-form__upload"
-          ref="fileInput"
+          v-model="$v.newBook.title.$model"
+          class="book-form__input"
+          type="text"
         />
       </label>
-       <button class="book-form__button" type="submit">Add book</button>
+      <span
+        v-if="$v.newBook.title.$error && !$v.newBook.title.required"
+        class="error"
+        >Book title is required</span
+      >
+      <label class="book-form__input-wrapper">
+        <span class="book-form__input-label">Author</span>
+        <input
+          v-model="$v.newBook.author.$model"
+          class="book-form__input"
+          type="text"
+        />
+      </label>
+      <span
+        v-if="$v.newBook.author.$error && !$v.newBook.author.required"
+        class="error"
+        >Author is required</span
+      >
+      <label class="book-form__input-wrapper">
+        <span class="book-form__input-label">Number of pages</span>
+        <input
+          v-model="$v.newBook.pages.$model"
+          class="book-form__input"
+          type="number"
+          min="1"
+        />
+      </label>
+      <span
+        v-if="$v.newBook.pages.$error && !$v.newBook.pages.required"
+        class="error"
+        >Number of pages is required</span
+      >
+      <label class="book-form__input-wrapper">
+        <span class="book-form__input-label">Wikipedia Link</span>
+        <input
+          v-model="$v.newBook.link.$model"
+          class="book-form__input"
+          type="text"
+        />
+      </label>
+      <span
+        v-if="$v.newBook.link.$error && !$v.newBook.link.required"
+        class="error"
+        >A link to the book on Wiki is required</span
+      >
+      <label class="book-form__input-wrapper"
+        >Upload a book cover
+        <input
+          ref="fileInput"
+          type="file"
+          accept="image/*"
+          class="book-form__upload"
+          @change="uploadImage($event)"
+        />
+      </label>
+      <button class="book-form__button" type="submit">Add book</button>
     </form>
- 
   </div>
 </template>
 
 <script>
-import { validationMixin } from 'vuelidate'
-import { required } from 'vuelidate/lib/validators'
+import { validationMixin } from "vuelidate";
+import { required } from "vuelidate/lib/validators";
 export default {
   name: "AddBook",
-  components: {
-
-  },
+  components: {},
+  mixins: [validationMixin],
   data() {
     return {
-    newBook:{
+      newBook: {
         author: "",
         imageLink: "",
         link: "",
@@ -86,44 +95,42 @@ export default {
         title: "",
         readStatus: false,
         review: "",
-        rating: null
-
-    }
+        rating: null,
+      },
     };
   },
-  mixins: [validationMixin],
-  validations:{
+  validations: {
     newBook: {
       title: {
-        required
+        required,
       },
       author: {
-        required
+        required,
       },
       link: {
-        required
+        required,
       },
       pages: {
-        required
-      }
-    }
+        required,
+      },
+    },
   },
-  methods:{
+  methods: {
     uploadImage(e) {
       const image = e.target.files[0];
       const reader = new FileReader();
       reader.readAsDataURL(image);
-      reader.onload = e => {
+      reader.onload = (e) => {
         this.newBook.imageLink = e.target.result;
       };
     },
-    saveBook(){
-      this.$v.$touch()
-      if (!this.$v.$invalid){
-        this.$store.commit("addPersonalBook", this.newBook)
-      }  
-    }
-  }
+    saveBook() {
+      this.$v.$touch();
+      if (!this.$v.$invalid) {
+        this.$store.commit("addPersonalBook", this.newBook);
+      }
+    },
+  },
 };
 </script>
 <style scoped lang="scss">
@@ -178,7 +185,7 @@ $shadow: 0px 1rem 2rem rgba(0, 0, 0, 0.1);
 }
 
 .error {
-  color: #FD6958;
+  color: #fd6958;
   font-size: 14px;
 }
 .book-form__button {

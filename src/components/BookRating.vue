@@ -1,21 +1,40 @@
 <template>
   <div class="rating">
-      <button
-        v-if="!reviewStatus"
-        @click="reviewStatus =!reviewStatus"
-        class="rating__button"
-      >{{review != '' ? 'Edit review' : 'Add review'}}</button>
-      <div v-if="!reviewStatus && rating">
-        <star-rating :read-only="true" :show-rating="false"  v-model="rating" :rating="rating" :star-size="20"></star-rating>
-        </div>
-      <p :class="review==='' ? '': 'rating__review'" v-if="!reviewStatus">{{ review }}</p>
-      <div v-else class="rating__add-review">
-        <p>Rating:</p>
-        <star-rating  v-model="rating" :rating="rating" :star-size="20"></star-rating>
-        <p>Review:</p>
-        <textarea :value="review" type="text" @change="getText($event)" maxlength="100"></textarea>
-        <button @click="saveReview()" class="rating__button">Done</button>
-      </div>
+    <button
+      v-if="!reviewStatus"
+      class="rating__button"
+      @click="reviewStatus = !reviewStatus"
+    >
+      {{ review != "" ? "Edit review" : "Add review" }}
+    </button>
+    <div v-if="!reviewStatus && rating">
+      <StarRating
+        v-model="rating"
+        :read-only="true"
+        :show-rating="false"
+        :rating="rating"
+        :star-size="20"
+      ></StarRating>
+    </div>
+    <p v-if="!reviewStatus" :class="review === '' ? '' : 'rating__review'">
+      {{ review }}
+    </p>
+    <div v-else class="rating__add-review">
+      <p>Rating:</p>
+      <StarRating
+        v-model="rating"
+        :rating="rating"
+        :star-size="20"
+      ></StarRating>
+      <p>Review:</p>
+      <textarea
+        :value="review"
+        type="text"
+        maxlength="100"
+        @change="getText($event)"
+      ></textarea>
+      <button class="rating__button" @click="saveReview()">Done</button>
+    </div>
   </div>
 </template>
 
@@ -23,47 +42,50 @@
 import StarRating from "vue-star-rating";
 export default {
   name: "BookRating",
+  components: {
+    StarRating,
+  },
   props: {
     book: {
       type: Object,
-      required: true
+      required: true,
     },
   },
-  components: {
-    StarRating
-  },
- mounted(){
-   if(this.book.review){
-     this.review = this.book.review
-   }
-    if(this.book.rating){
-     this.rating = this.book.rating
-   }
-
- },
   data() {
     return {
       reviewStatus: false,
       review: "",
-      rating: null
+      rating: null,
     };
+  },
+  mounted() {
+    if (this.book.review) {
+      this.review = this.book.review;
+    }
+    if (this.book.rating) {
+      this.rating = this.book.rating;
+    }
   },
 
   methods: {
-    getText(event){
-      this.review = event.target.value
+    getText(event) {
+      this.review = event.target.value;
     },
-    saveReview(){
-      this.reviewStatus =!this.reviewStatus
-      this.$store.dispatch('sendToBookRating', {review: this.review, rating: this.rating, bookTitle: this.book.title})
+    saveReview() {
+      this.reviewStatus = !this.reviewStatus;
+      this.$store.dispatch("sendToBookRating", {
+        review: this.review,
+        rating: this.rating,
+        bookTitle: this.book.title,
+      });
     },
-  }
+  },
 };
 </script>
 <style scoped lang="scss">
 .rating {
   margin-top: 20px;
-    &__button {
+  &__button {
     background: #4db8e6;
     border: 0;
     border-radius: 10px;
@@ -81,10 +103,10 @@ export default {
     font-style: italic;
     margin-top: 10px;
     &:before {
-      content: '"'
+      content: '"';
     }
     &:after {
-      content: '"'
+      content: '"';
     }
   }
   &__add-review {
@@ -94,7 +116,6 @@ export default {
       text-align: center;
       margin-bottom: 10px;
       resize: none;
-
     }
   }
 }

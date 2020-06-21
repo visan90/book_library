@@ -1,72 +1,65 @@
 <template>
   <section class="library">
     <div class="library__link-wrap">
-      <router-link
-        to="/add-book"
-        class="library__link"
-      >
+      <router-link to="/add-book" class="library__link">
         Add my favourite book
       </router-link>
-      <router-link
-        to="/my-library"
-        class="library__link"
-      >
+      <router-link to="/my-library" class="library__link">
         My library
       </router-link>
     </div>
     <h2 class="library__title">Best 100 books to read</h2>
     <div class="library__searchbar">
       <input
+        v-model="searchedBook"
         class="library__searchbar--input"
         type="text"
-        v-model="searchedBook"
         placeholder="Search by title or author"
-      >
+      />
       <i class="fas fa-search library__searchbar--icon"></i>
     </div>
     <div class="library__list">
-      <EachBook 
-        v-for="book in filteredBookList" 
-        :book="book" 
-        :key="book.title+book.pages"/>
+      <EachBook
+        v-for="book in filteredBookList"
+        :key="book.title + book.pages"
+        :book="book"
+      />
     </div>
   </section>
 </template>
 
 <script>
-
 import EachBook from "../components/EachBook";
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
 export default {
   name: "BookList",
   components: {
-    EachBook
+    EachBook,
   },
   data() {
     return {
-      searchedBook: ""
+      searchedBook: "",
     };
   },
   computed: {
-     ...mapState({
-       books: state => state.books
-     }),
+    ...mapState({
+      books: (state) => state.books,
+    }),
     filteredBookList() {
-      return this.books.filter(item => {
+      return this.books.filter((item) => {
         return (
           item.title.toLowerCase().includes(this.searchedBook.toLowerCase()) ||
           item.author.toLowerCase().includes(this.searchedBook.toLowerCase())
         );
       });
-    }
+    },
   },
   created() {
-    this.$store.dispatch('loadData')
-  }
+    this.$store.dispatch("loadData");
+  },
 };
 </script>
-
 
 <style lang="scss" scoped>
 $shadow: 0px 1rem 2rem rgba(0, 0, 0, 0.1);
