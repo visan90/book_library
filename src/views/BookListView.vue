@@ -18,6 +18,7 @@
       />
       <i class="fas fa-search library__searchbar--icon"></i>
     </div>
+    <BookModal v-if="toggleModal" :modal-book="modalBook" name="modal" />
     <div class="library__list">
       <EachBook
         v-for="book in filteredBookList"
@@ -30,12 +31,14 @@
 
 <script>
 import EachBook from "../components/EachBook";
+import BookModal from "../components/BookModal";
 import { mapState } from "vuex";
 
 export default {
   name: "BookList",
   components: {
     EachBook,
+    BookModal,
   },
   data() {
     return {
@@ -45,6 +48,8 @@ export default {
   computed: {
     ...mapState({
       books: (state) => state.books,
+      toggleModal: (state) => state.toggleModal,
+      modalBook: (state) => state.modalBook,
     }),
     filteredBookList() {
       return this.books.filter((item) => {

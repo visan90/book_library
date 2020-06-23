@@ -7,6 +7,8 @@ export const store = new Vuex.Store({
   state: {
     favorites: [],
     books: [],
+    toggleModal: false,
+    modalBook: {},
   },
 
   actions: {
@@ -47,6 +49,13 @@ export const store = new Vuex.Store({
   mutations: {
     updateBooks(state, normalizedBooks) {
       state.books = normalizedBooks;
+    },
+    openModal(state, book) {
+      state.modalBook = book;
+      state.toggleModal = true;
+    },
+    closeModal(state) {
+      state.toggleModal = false;
     },
     addBookToFavorites(state, payload) {
       //added aditional verification in order to avoid "Add to My Books" button disabled workaround
