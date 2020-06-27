@@ -1,30 +1,28 @@
 <template>
-  <div>
-    <div class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container">
-          <img class="small" :src="modalBook.imageLink" />
-          <div class="details">
-            <h2>{{ modalBook.title }}</h2>
-            <p>Author: {{ modalBook.author }}</p>
-            <p>Pages: {{ modalBook.pages }}</p>
-            <p>
-              <a target="_blank" :href="modalBook.link">More on Wikipedia</a>
-            </p>
-            <button
-              class="modal__button"
-              :disabled="checkBookFavorites"
-              @click="addToFavorites()"
-            >
-              {{
-                !checkBookFavorites ? "Add to My Books" : "Already in My books"
-              }}
-            </button>
-          </div>
-          <button class="modal__close" @click="closeModal">
-            <i class="fas fa-times"></i>
+  <div class="modal-mask">
+    <div ref="modal" class="modal-wrapper">
+      <div class="modal-container">
+        <img class="small" :src="modalBook.imageLink" />
+        <div class="details">
+          <h2>{{ modalBook.title }}</h2>
+          <p>Author: {{ modalBook.author }}</p>
+          <p>Pages: {{ modalBook.pages }}</p>
+          <p>
+            <a target="_blank" :href="modalBook.link">More on Wikipedia</a>
+          </p>
+          <button
+            class="modal__button"
+            :disabled="checkBookFavorites"
+            @click="addToFavorites()"
+          >
+            {{
+              !checkBookFavorites ? "Add to My Books" : "Already in My books"
+            }}
           </button>
         </div>
+        <button class="modal__close" @click="closeModal">
+          <i class="fas fa-times"></i>
+        </button>
       </div>
     </div>
   </div>
@@ -49,6 +47,11 @@ export default {
         (item) => item.title === this.modalBook.title
       );
     },
+  },
+  mounted() {
+    const modal = this.$refs.modal;
+    modal.setAttribute("tabindex", "0");
+    modal.focus();
   },
   methods: {
     closeModal() {

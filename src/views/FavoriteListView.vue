@@ -4,22 +4,24 @@
       <router-link to="/" class="favorites__link">
         Home
       </router-link>
-      <router-link to="/add-lbook" class="favorites__link">
+      <router-link to="/add-book" class="favorites__link">
         Add my favourite book
       </router-link>
     </div>
-    <h2 class="favorites__title">My Books</h2>
-    <p class="favorites__text">Total Books: {{ checkFavoritesLength }}</p>
-    <p v-if="checkFavoritesLength" class="favorites__text">
-      Books left to read: {{ checkUnreadBooks }}
-    </p>
-    <p v-else class="favorites__text">No books read yet</p>
-    <div class="favorites__list">
-      <EachFavoriteBook
-        v-for="book in favoriteBooks"
-        :key="book.title + book.pages"
-        :book="book"
-      />
+    <div class="favorites__content">
+      <h2 class="favorites__title">My Books</h2>
+      <p class="favorites__text">Total Books: {{ checkFavoritesLength }}</p>
+      <p v-if="checkFavoritesLength" class="favorites__text">
+        Books left to read: {{ checkUnreadBooks }}
+      </p>
+      <p v-else class="favorites__text">No books read yet</p>
+      <div class="favorites__list">
+        <EachFavoriteBook
+          v-for="book in favoriteBooks"
+          :key="book.title + book.pages"
+          :book="book"
+        />
+      </div>
     </div>
   </section>
 </template>
@@ -49,7 +51,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$shadow: 0px 1rem 2rem rgba(0, 0, 0, 0.1);
+@import "../../public/variables.scss";
 
 .favorites {
   max-width: 1600px;
@@ -67,6 +69,11 @@ $shadow: 0px 1rem 2rem rgba(0, 0, 0, 0.1);
       transform: scale(1.3, 1.3);
       -webkit-transform: scale(1.3, 1.3);
       -moz-transform: scale(1.3, 1.3);
+    }
+  }
+  &__content {
+    @media only screen and (max-width: $breakpoint-medium) {
+      padding-top: 120px;
     }
   }
   &__title {

@@ -29,7 +29,7 @@ const routes = [
   },
   {
     path: "/add-book",
-    name: "add-lbook",
+    name: "add-book",
     component: () =>
       import(/* webpackChunkName: "my-library" */ "../views/AddBookView.vue"),
   },

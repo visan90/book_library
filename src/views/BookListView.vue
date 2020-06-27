@@ -67,7 +67,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$shadow: 0px 1rem 2rem rgba(0, 0, 0, 0.1);
+@import "../../public/variables.scss";
+
 .library {
   max-width: 1600px;
   margin: auto;
@@ -90,6 +91,9 @@ $shadow: 0px 1rem 2rem rgba(0, 0, 0, 0.1);
     font-weight: 300;
     text-align: center;
     padding: 10px;
+    @media only screen and (max-width: $breakpoint-medium) {
+      padding-top: 120px;
+    }
   }
   &__searchbar {
     position: relative;

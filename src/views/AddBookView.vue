@@ -128,18 +128,25 @@ export default {
       this.$v.$touch();
       if (!this.$v.$invalid) {
         this.$store.commit("addPersonalBook", this.newBook);
+        this.$router.push("my-library");
       }
     },
   },
 };
 </script>
 <style scoped lang="scss">
-$shadow: 0px 1rem 2rem rgba(0, 0, 0, 0.1);
+@import "../../public/variables.scss";
+
 .book-form__form {
   max-width: 600px;
   margin: auto;
   display: flex;
   flex-direction: column;
+}
+.book-form__title {
+  @media only screen and (max-width: $breakpoint-medium) {
+    padding-top: 120px;
+  }
 }
 .book-form__input-wrapper {
   display: flex;
