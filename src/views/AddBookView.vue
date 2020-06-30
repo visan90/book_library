@@ -136,7 +136,12 @@ export default {
 </script>
 <style scoped lang="scss">
 @import "../../public/variables.scss";
+@import "../../public/mixins.scss";
 
+.book-form {
+  max-width: 1600px;
+  margin: auto;
+}
 .book-form__form {
   max-width: 600px;
   margin: auto;
@@ -174,14 +179,7 @@ export default {
 }
 
 .book-form__link {
-  background: #fff;
-  border: 0;
-  border-radius: 10px;
-  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
-  color: #000000;
-  padding: 10px 0;
-  width: 180px;
-  text-decoration: none;
+  @include button;
   &:hover {
     cursor: pointer;
     color: #4db8e6;

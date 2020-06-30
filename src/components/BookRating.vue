@@ -85,38 +85,38 @@ export default {
 <style scoped lang="scss">
 .rating {
   margin-top: 20px;
-  &__button {
-    background: #4db8e6;
-    border: 0;
-    border-radius: 10px;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
-    padding: 10px 20px;
-    margin: 0 2px;
-    &:disabled {
-      background: lighten(#4db8e6, 20%);
-    }
-    &:hover {
-      cursor: pointer;
-    }
+}
+.rating__button {
+  background: #4db8e6;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  margin: 0 2px;
+  &:disabled {
+    background: lighten(#4db8e6, 20%);
   }
-  &__review {
-    font-style: italic;
-    margin-top: 10px;
-    &:before {
-      content: '"';
-    }
-    &:after {
-      content: '"';
-    }
+  &:hover {
+    cursor: pointer;
   }
-  &__add-review {
-    textarea {
-      display: block;
-      margin: auto;
-      text-align: center;
-      margin-bottom: 10px;
-      resize: none;
-    }
+}
+.rating__review {
+  font-style: italic;
+  margin-top: 10px;
+  &:before {
+    content: '"';
+  }
+  &:after {
+    content: '"';
+  }
+}
+.rating__add-review {
+  textarea {
+    display: block;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 10px;
+    resize: none;
   }
 }
 .vue-star-rating {

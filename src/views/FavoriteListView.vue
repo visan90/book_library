@@ -52,49 +52,50 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../public/variables.scss";
+@import "../../public/mixins.scss";
 
 .favorites {
   max-width: 1600px;
   margin: auto;
-  &__button {
-    background: #fff;
-    border: 0;
-    border-radius: 0 0 10px 10px;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
-    padding: 10px 20px;
-    position: fixed;
-    z-index: 2;
-    &:hover {
-      cursor: pointer;
-      transform: scale(1.3, 1.3);
-      -webkit-transform: scale(1.3, 1.3);
-      -moz-transform: scale(1.3, 1.3);
-    }
+}
+.favorites__button {
+  background: #fff;
+  border: 0;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  position: fixed;
+  z-index: 2;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.3, 1.3);
+    -webkit-transform: scale(1.3, 1.3);
+    -moz-transform: scale(1.3, 1.3);
   }
-  &__content {
-    @media only screen and (max-width: $breakpoint-medium) {
-      padding-top: 120px;
-    }
+}
+.favorites__content {
+  @media only screen and (max-width: $breakpoint-medium) {
+    padding-top: 120px;
   }
-  &__title {
-    font-weight: 300;
-    text-align: center;
-    margin: auto;
-    padding: 10px;
-  }
-  &__text {
-    text-align: center;
-    margin: auto;
-  }
-  &__list {
-    list-style-type: none;
-    padding: 40px 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 310px);
-    grid-gap: 20px;
-    grid-auto-rows: auto;
-    justify-content: center;
-  }
+}
+.favorites__title {
+  font-weight: 300;
+  text-align: center;
+  margin: auto;
+  padding: 10px;
+}
+.favorites__text {
+  text-align: center;
+  margin: auto;
+}
+.favorites__list {
+  list-style-type: none;
+  padding: 40px 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 310px);
+  grid-gap: 20px;
+  grid-auto-rows: auto;
+  justify-content: center;
 }
 
 .favorites__link-wrap {
@@ -105,14 +106,7 @@ export default {
 }
 
 .favorites__link {
-  background: #fff;
-  border: 0;
-  border-radius: 10px;
-  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
-  color: #000000;
-  padding: 10px 0;
-  width: 180px;
-  text-decoration: none;
+  @include button;
   &:hover {
     cursor: pointer;
     color: #4db8e6;

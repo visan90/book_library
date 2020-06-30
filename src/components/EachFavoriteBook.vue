@@ -60,38 +60,38 @@ export default {
   max-width: 300px;
   padding: 20px;
   text-align: center;
+}
 
-  &__wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-    p {
-      line-height: 1.5;
-    }
+.fav-book__wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  p {
+    line-height: 1.5;
   }
-  &__title {
-    font-size: 25px;
-    margin: 10px auto;
+}
+.fav-book__title {
+  font-size: 25px;
+  margin: 10px auto;
+}
+.fav-book__button {
+  background: #4db8e6;
+  border: 0;
+  border-radius: 10px;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  margin: 0 2px;
+  &:disabled {
+    background: lighten(#4db8e6, 20%);
   }
-  &__button {
-    background: #4db8e6;
-    border: 0;
-    border-radius: 10px;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
-    padding: 10px 20px;
-    margin: 0 2px;
-    &:disabled {
-      background: lighten(#4db8e6, 20%);
-    }
-    &:hover {
-      cursor: pointer;
-    }
+  &:hover {
+    cursor: pointer;
   }
-  &__img {
-    width: 120px;
-    height: 188px;
-  }
+}
+.fav-book__img {
+  width: 120px;
+  height: 188px;
 }
 
 a {

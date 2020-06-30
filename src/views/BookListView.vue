@@ -68,67 +68,70 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../public/variables.scss";
+@import "../../public/mixins.scss";
 
 .library {
   max-width: 1600px;
   margin: auto;
-  &__button {
-    background: #fff;
-    border: 0;
-    border-radius: 0 0 10px 10px;
-    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
-    padding: 10px 20px;
-    position: fixed;
-    z-index: 2;
-    &:hover {
-      cursor: pointer;
-      transform: scale(1.3, 1.3);
-      -webkit-transform: scale(1.3, 1.3);
-      -moz-transform: scale(1.3, 1.3);
-    }
-  }
-  &__title {
-    font-weight: 300;
-    text-align: center;
-    padding: 10px;
-    @media only screen and (max-width: $breakpoint-medium) {
-      padding-top: 120px;
-    }
-  }
-  &__searchbar {
-    position: relative;
-    text-align: center;
-    margin: auto;
-    width: 300px;
-    height: 100%;
-    &--input {
-      width: 260px;
-      height: 20px;
-      border: none;
-      outline: none;
-      border-radius: 10rem;
-      box-shadow: $shadow;
-      padding: 10px;
-      transition: all 0.2s;
-      transition-delay: 0.1s;
-    }
-    &--icon {
-      height: 16px;
-      position: absolute;
-      top: 12px;
-      right: 20px;
-      transition: all 0.2s;
-      transition-delay: 0.1s;
-    }
-  }
-  &__list {
-    list-style-type: none;
-    padding: 40px 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+}
+.library__button {
+  background: #fff;
+  border: 0;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  position: fixed;
+  z-index: 2;
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.3, 1.3);
+    -webkit-transform: scale(1.3, 1.3);
+    -moz-transform: scale(1.3, 1.3);
   }
 }
+.library__title {
+  font-weight: 300;
+  text-align: center;
+  padding: 10px;
+  @media only screen and (max-width: $breakpoint-medium) {
+    padding-top: 120px;
+  }
+}
+.library__searchbar {
+  position: relative;
+  text-align: center;
+  margin: auto;
+  width: 300px;
+  height: 100%;
+}
+.library__searchbar--input {
+  width: 260px;
+  height: 20px;
+  border: none;
+  outline: none;
+  border-radius: 10rem;
+  box-shadow: $shadow;
+  padding: 10px;
+  transition: all 0.2s;
+  transition-delay: 0.1s;
+}
+.library__searchbar--icon {
+  height: 16px;
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  transition: all 0.2s;
+  transition-delay: 0.1s;
+}
+
+.library__list {
+  list-style-type: none;
+  padding: 40px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .library__link-wrap {
   display: flex;
   flex-direction: column;
@@ -137,14 +140,7 @@ export default {
 }
 
 .library__link {
-  background: #fff;
-  border: 0;
-  border-radius: 10px;
-  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.1);
-  color: #000000;
-  padding: 10px 0;
-  width: 180px;
-  text-decoration: none;
+  @include button;
   &:hover {
     cursor: pointer;
     color: #4db8e6;
